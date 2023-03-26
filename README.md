@@ -22,11 +22,7 @@ Lorsque l’enseignant choisit cette option, le programme doit lui demander les 
 le nom d’utilisateur de l’étudiant, ce nom doit être composé des 3 premières lettre du nom de famille + la première lettre du prénom +l’année de naissance
 -	utilisez les expressions régulières pour vérifier la validité des entrées de l’enseignant (nom, prénom, courriel)
 -	stockez ces étudiant dans un tableau a deux dimension comme suite :
-
-
 ![Screenshot 2023-03-26 105150](https://user-images.githubusercontent.com/47845955/227784716-cfe1ba8b-d195-434e-9c81-2389822fb4af.png)
-
-
 4.	Lister tous les étudiants de la liste
 5.	Afficher les informations d’un étudiant donné en fournissant son nom et son prénom
 6.	 Quitter le programme
