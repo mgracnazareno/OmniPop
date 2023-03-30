@@ -29,13 +29,11 @@ public class Omnipop {
         String response = null;
         int infructueseTentative = 0;
         int choice = 0;
-
         String[][] courseList = {
             {"Fall 2021", "Database", "Algorithme"},
             {"Winter 2021", "Object Oriented", "Database", "Alogirthme"},
             {"Summer 2022", "Data Structure", "Object Oriented"}
         };
-
         //String id = "", nom = "", prenom = "", aNaissance = "", email = "", codeP;
         int tEtudiant = 0;
         String[][] etudiant;
@@ -77,7 +75,6 @@ public class Omnipop {
                 }
             }
             //MENU PRINCIPAL
-
             switch (choice) {
                 case 1:
                     int courseListChoice = 0;
@@ -87,11 +84,10 @@ public class Omnipop {
                     courseListChoice = input.nextInt();
                     input.nextLine();
                     System.out.println("");
-
                     //MENU POUR LISTER TOUS LES COURS PAS SESSION
                     switch (courseListChoice) {
                         case 1:
-                            System.out.println("Cours pour l'Automne 2021\n");
+                            System.out.println("Cours pour l'Automne 2021");
                             String courseFall = "";
                             for (int row = 0; row < courseList.length; row++) {
                                 for (int col = 0; col < courseList[row].length; col++) {
@@ -102,7 +98,7 @@ public class Omnipop {
                             System.out.println("");
                             break;
                         case 2:
-                            System.out.println("Cours pour d'Hiver 2021\n");
+                            System.out.println("Cours pour d'Hiver 2021");
                             String courseWinter = "";
                             for (int row = 0; row < courseList.length; row++) {
                                 for (int col = 0; col < courseList[row].length; col++) {
@@ -113,7 +109,7 @@ public class Omnipop {
                             System.out.println("");
                             break;
                         case 3:
-                            System.out.println("Cours pour l'Été 2022\n");
+                            System.out.println("Cours pour l'Été 2022");
                             String courseSummer = "";
                             for (int row = 0; row < courseList.length; row++) {
                                 for (int col = 0; col < courseList[row].length; col++) {
@@ -123,12 +119,8 @@ public class Omnipop {
                             System.out.println(courseSummer);
                             System.out.println("");
                             break;
-                        case 4:
-                            displayMenu();
-                            //printMenu();
-                            break;
                         default:
-                            System.out.println("Éntrée invalide, entrez une numeric valeur de 1 à 4");
+                            System.out.println("Éntrée est invalide, entrez une numeric valeur de 1 à 4");
                             break;
                     }
                     break;
@@ -156,16 +148,14 @@ public class Omnipop {
                     System.exit(0);
                     break;
                 default:
+                    System.out.println("Entree est invalide!");
                     break;
             }
-
             // Prompt user to continue or exit
             System.out.println("Veuillez vous faire une autre tache? (oui ou non): ");
             response = input.next();
             input.nextLine();
-
         } while (response.equalsIgnoreCase("oui"));
-
         input.close();
     }
 
@@ -179,38 +169,7 @@ public class Omnipop {
         System.out.println("6. Quit");
     }
 
-    private static void displayMenu() {
-        int choice;
-        String reponse;
-        Scanner input = new Scanner(System.in);
-
-        do {
-            printMenu();
-            System.out.println("Choissisez dés options ci-dessus. (1 to 6) ");
-            System.out.println("Entrez votre choix: ");
-            choice = input.nextInt();
-
-            switch (choice) {
-                case 1:
-                    getCourseListMenu();
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                default:
-                    break;
-            }
-            System.out.println("Voulez vous faire un autre chose? ");
-            reponse = input.nextLine();
-        } while (reponse.equalsIgnoreCase("oui"));
-    }
-
     private static void getCourseListMenu() {
-
         System.out.println("Display Courses by Season");
         System.out.println("1- Automne 2021");
         System.out.println("2- Hiver 2021");
@@ -235,17 +194,7 @@ public class Omnipop {
             throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
         }
     }
-    private static void afficheStudents(String[][] etudiant) {
-        //System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "Nom", "Prenom", "Naissance", "Email", "Code Permanent");
-        for (String[] etud : etudiant) {
-            for (String etudCol : etud) {
-                System.out.printf("%-10s ", etudCol);
-            }
-            System.out.println();
-        }
-    }
     private static void getStudentInfo(String[][] etudiant, Scanner input) {
-
         int id= 1;
         for (int row = 0; row < etudiant.length; row++) {
             System.out.println("Entrez l'information d'Etudiant " + id++);
@@ -273,19 +222,18 @@ public class Omnipop {
                 row--;
                 continue;
             }
-
-        }
-            System.out.println();
+             System.out.println();
+        }     
     }
     
 
     private static void displayStudents(String[][] students) {
        //Print column headers
-        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", "Id", "Prenom", "Nom", "Date de naissance", "Email", "Code Permanent");
+        System.out.printf("%-4s%-15s%-15s%-20s%-30s%-15s\n", "Id", "Prenom", "Nom", "Date de naissance", "Email", "Code Permanent");
 
         // Print the student data
         for (int row = 0; row < students.length; row++) {
-            System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", students[row][0], students[row][1], students[row][2], students[row][3], students[row][4], students[row][5]);
+            System.out.printf("%-4s%-15s%-15s%-20s%-30s%-15s\n", students[row][0], students[row][1], students[row][2], students[row][3], students[row][4], students[row][5]);
         }
     }
 
