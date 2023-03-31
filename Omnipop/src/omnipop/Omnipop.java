@@ -264,7 +264,7 @@ public class Omnipop {
         return matcher.matches();
     }
 
-   public static boolean isAnneeValid(String annee) {
+    public static boolean isAnneeValid(String annee) {
         int currentYear = LocalDate.now().getYear();
         try {
             int anneeInt = Integer.parseInt(annee);
@@ -273,27 +273,25 @@ public class Omnipop {
             return false;
         }
     }
-   
-   private static void afficherInfoEtudiant(String[][] etudiants, String nom, String prenom) {
-    boolean trouve = false;
-    for (String[] etudiant : etudiants) {
-        if (etudiant[1].equals(nom) && etudiant[2].equals(prenom)) {
-            trouve = true;
-            System.out.println("Informations de l'étudiant :");
-            System.out.println("ID : " + etudiant[0]);
-            System.out.println("Nom : " + etudiant[1]);
-            System.out.println("Prénom : " + etudiant[2]);
-            System.out.println("Année de Naissance " + etudiant[3]);
-            System.out.println("Email: " + etudiant[4]);
-            System.out.println("Code Permanent: " + etudiant[5]);
-            break;
+
+    private static void afficherInfoEtudiant(String[][] etudiants, String nom, String prenom) {
+        boolean trouve = false;
+        for (String[] etudiant : etudiants) {
+            if (etudiant[1].equals(nom) && etudiant[2].equals(prenom)) {
+                trouve = true;
+                System.out.println("Informations de l'étudiant :");
+                System.out.println("ID : " + etudiant[0]);
+                System.out.println("Nom : " + etudiant[1]);
+                System.out.println("Prénom : " + etudiant[2]);
+                System.out.println("Année de Naissance " + etudiant[3]);
+                System.out.println("Email: " + etudiant[4]);
+                System.out.println("Code Permanent: " + etudiant[5]);
+                break;
+            }
+        }
+        if (!trouve) {
+            System.out.println("Etudiant introuvable.");
         }
     }
-
-    if (!trouve) {
-        System.out.println("Etudiant introuvable.");
-    }
-}
-
 
 }
