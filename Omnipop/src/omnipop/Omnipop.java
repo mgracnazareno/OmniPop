@@ -21,6 +21,7 @@ public class Omnipop {
      */
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        System.setProperty("console.encoding", "UTF-8");
 
         final String USERNAME = "mlazar";
         final String PASSWORD = "1234";
@@ -136,23 +137,38 @@ public class Omnipop {
                 case 3:
                     System.out.println("Combien d'étudiants voulez-vous ajouter dans le dossier ?: ");
                     tEtudiant = input.nextInt();
-                    input.nextLine();
+                    //input.nextLine();
                     etudiant = new String[tEtudiant][6];
                     getStudentInfo(etudiant);
 
                     break;
                 case 4:
+
                     System.out.println("Lister tous les étudiants");
-                    displayStudents(etudiant);
+                    if (tEtudiant > 0) {
+                        displayStudents(etudiant);
+                    } else {
+                        System.out.println("Il n'y a pas d'étudiant dans la liste");
+
+                    }
                     break;
+
                 case 5:
                     System.out.println("Rechercher un étudiant, veuillez entrez le nom et prenom");
-                    System.out.println("Enter le nom: ");
-                    nom = input.next();
-                    System.out.println("Entrez le prenom: ");
-                    prenom = input.next();
-                    afficherInfoEtudiant(etudiant, nom, prenom);
+                    System.out.print("Enter le nom: ");
+                    nom = input.nextLine();
+                    System.out.print("Entrez le prenom: ");
+                    prenom = input.nextLine();
+                    int studentIndex = findStudentIndex(etudiant, nom, prenom);
+                    if (studentIndex == -1) {
+                        System.out.println("Aucun étudiant trouvé avec ce nom et prénom.");
+                    } else {
+                        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", "Id", "Nom", "Prenom", "Date de naissance", "Email", "Code Permanent");
+                        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", etudiant[studentIndex][0], etudiant[studentIndex][1], etudiant[studentIndex][2], etudiant[studentIndex][3], etudiant[studentIndex][4], etudiant[studentIndex][5]);
+             
+                    }
                     break;
+                    
                 case 6:
                     System.exit(0);
                     break;
@@ -240,7 +256,7 @@ public class Omnipop {
 
     private static void displayStudents(String[][] students) {
         //Print olumn headers
-        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", "Id", "Prenom", "Nom", "Date de naissance", "Email", "Code Permanent");
+        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", "Id", "Nom", "Prenom", "Date de naissance", "Email", "Code Permanent");
 
         // Print the student data
         for (int row = 0; row < students.length; row++) {
@@ -292,6 +308,15 @@ public class Omnipop {
         if (!trouve) {
             System.out.println("Etudiant introuvable.");
         }
+    }
+
+    private static int findStudentIndex(String[][] students, String nom, String prenom) {
+        for (int i = 0; i < students.length; i++) {
+            if (students[i][1].equals(nom) && students[i][2].equals(prenom)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
