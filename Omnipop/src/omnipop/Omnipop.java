@@ -5,7 +5,10 @@
  */
 package omnipop;
 
+import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -34,7 +37,7 @@ public class Omnipop {
             {"Winter 2021", "Object Oriented", "Database", "Alogirthme"},
             {"Summer 2022", "Data Structure", "Object Oriented"}
         };
-        //String id = "", nom = "", prenom = "", aNaissance = "", email = "", codeP;
+        String id = "", nom = "", prenom = "", aNaissance = "", email = "", codeP;
         int tEtudiant = 0;
         String[][] etudiant;
         etudiant = new String[tEtudiant][6];
@@ -81,7 +84,8 @@ public class Omnipop {
                     getCourseListMenu();
                     System.out.println("");
                     System.out.println("Entrez votre choix: ");
-                    courseListChoice = input.nextInt();
+                    courseListChoice = validerEntree();
+                    //courseListChoice = input.nextInt();
                     input.nextLine();
                     System.out.println("");
                     //MENU POUR LISTER TOUS LES COURS PAS SESSION
@@ -133,16 +137,21 @@ public class Omnipop {
                     System.out.println("Combien d'étudiants voulez-vous ajouter dans le dossier ?: ");
                     tEtudiant = input.nextInt();
                     input.nextLine();
-                    etudiant= new String[tEtudiant][6];
-                    getStudentInfo(etudiant, input);
+                    etudiant = new String[tEtudiant][6];
+                    getStudentInfo(etudiant);
 
                     break;
                 case 4:
                     System.out.println("Lister tous les étudiants");
-                     displayStudents(etudiant);
+                    displayStudents(etudiant);
                     break;
                 case 5:
-                    System.out.println("Rechercher un étudiant par nom");
+                    System.out.println("Rechercher un étudiant, veuillez entrez le nom et prenom");
+                    System.out.println("Enter le nom: ");
+                    nom = input.next();
+                    System.out.println("Entrez le prenom: ");
+                    prenom = input.next();
+                    afficherInfoEtudiant(etudiant, nom, prenom);
                     break;
                 case 6:
                     System.exit(0);
@@ -186,6 +195,7 @@ public class Omnipop {
         }
         System.out.println("");
     }
+
     public static String genererCodePermanent(String nom, String prenom, String aNaissance) {
         if (prenom.length() >= 3 && nom.length() >= 1) {
             String codeP = prenom.substring(0, 3) + nom.substring(0, 1) + aNaissance;
@@ -194,15 +204,17 @@ public class Omnipop {
             throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
         }
     }
-    private static void getStudentInfo(String[][] etudiant, Scanner input) {
-        int id= 1;
+
+    private static void getStudentInfo(String[][] etudiant) {
+        Scanner input = new Scanner(System.in);
+        int id = 1;
         for (int row = 0; row < etudiant.length; row++) {
             System.out.println("Entrez l'information d'Etudiant " + id++);
             //input.nextLine();
             System.out.print("Nom de famille: ");
             String nom = input.nextLine();
             System.out.print("Prenom: ");
-            String prenom =  input.nextLine();
+            String prenom = input.nextLine();
             System.out.print("Année de naissance: ");
             String aNaissance = input.nextLine();
             System.out.print("Email: ");
@@ -222,18 +234,17 @@ public class Omnipop {
                 row--;
                 continue;
             }
-             System.out.println();
-        }     
+            System.out.println();
+        }
     }
-    
 
     private static void displayStudents(String[][] students) {
-       //Print column headers
-        System.out.printf("%-4s%-15s%-15s%-20s%-30s%-15s\n", "Id", "Prenom", "Nom", "Date de naissance", "Email", "Code Permanent");
+        //Print olumn headers
+        System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", "Id", "Prenom", "Nom", "Date de naissance", "Email", "Code Permanent");
 
         // Print the student data
         for (int row = 0; row < students.length; row++) {
-            System.out.printf("%-4s%-15s%-15s%-20s%-30s%-15s\n", students[row][0], students[row][1], students[row][2], students[row][3], students[row][4], students[row][5]);
+            System.out.printf("%-4s%-15s%-15s%-20s%-25s%-15s\n", students[row][0], students[row][1], students[row][2], students[row][3], students[row][4], students[row][5]);
         }
     }
 
@@ -247,13 +258,42 @@ public class Omnipop {
         return validatedInput;
     }
 
-    private static void listerTousLesEtudiants(String[][] etudiants) {
-        System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s\n", "ID", "NOM", "PRÉNOM", "ANNÉE DE NAISSANCE", "EMAIL", "CODE PERMANENT");
-        for (int i = 0; i < etudiants.length; i++) {
-            for (int j = 0; j < etudiants[i].length; j++) {
-                System.out.printf("%-11s", etudiants[i][j]);
-            }
-            System.out.println("");
+    public static boolean validateName(String name) {
+        Pattern pattern = Pattern.compile("^[\\p{L}'\\- ]+$", Pattern.UNICODE_CHARACTER_CLASS);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
+
+   public static boolean isAnneeValid(String annee) {
+        int currentYear = LocalDate.now().getYear();
+        try {
+            int anneeInt = Integer.parseInt(annee);
+            return anneeInt >= 1900 && anneeInt <= currentYear;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
+   
+   private static void afficherInfoEtudiant(String[][] etudiants, String nom, String prenom) {
+    boolean trouve = false;
+    for (String[] etudiant : etudiants) {
+        if (etudiant[1].equals(nom) && etudiant[2].equals(prenom)) {
+            trouve = true;
+            System.out.println("Informations de l'étudiant :");
+            System.out.println("ID : " + etudiant[0]);
+            System.out.println("Nom : " + etudiant[1]);
+            System.out.println("Prénom : " + etudiant[2]);
+            System.out.println("Année de Naissance " + etudiant[3]);
+            System.out.println("Email: " + etudiant[4]);
+            System.out.println("Code Permanent: " + etudiant[5]);
+            break;
+        }
+    }
+
+    if (!trouve) {
+        System.out.println("Etudiant introuvable.");
+    }
+}
+
+
 }
