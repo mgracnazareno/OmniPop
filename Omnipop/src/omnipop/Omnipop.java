@@ -292,58 +292,58 @@ public class Omnipop {
             return false;
         }
     }
-
-    private static boolean validerNom(String nom) {
-        Pattern pattern = Pattern.compile("^[a-zA-ZÀ-ÖØ-öø-ÿ]*([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]*)*$");
-        Matcher matcher = pattern.matcher(nom);
-        if (!matcher.matches()) {
-            System.out.println("Le nom est invalide, Le nom doit commencer par une majuscule"
-                    + "suive de letters miniscules et éventuellement tiret suivi d'une majuscule et "
-                    + "de lettres minuscules");
-            return false;
-        }
-        return true;
-    }
-
-    private static boolean validerPrenom(String prenom) {
-        Pattern pattern = Pattern.compile("^[A-Z][a-z]*$");
-        Matcher matcher = pattern.matcher(prenom);
-        if (!matcher.matches()) {
-            System.out.println("Le prénom est invalide. Le prénom doit commencer par une majuscule suivie de lettres minuscules.");
-            return false;
-        }
-        return true;
-    }
+//
+//    private static boolean validerNom(String nom) {
+//        Pattern pattern = Pattern.compile("^[a-zA-ZÀ-ÖØ-öø-ÿ]*([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]*)*$");
+//        Matcher matcher = pattern.matcher(nom);
+//        if (!matcher.matches()) {
+//            System.out.println("Le nom est invalide, Le nom doit commencer par une majuscule"
+//                    + "suive de letters miniscules et éventuellement tiret suivi d'une majuscule et "
+//                    + "de lettres minuscules");
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    private static boolean validerPrenom(String prenom) {
+//        Pattern pattern = Pattern.compile("^[A-Z][a-z]*$");
+//        Matcher matcher = pattern.matcher(prenom);
+//        if (!matcher.matches()) {
+//            System.out.println("Le prénom est invalide. Le prénom doit commencer par une majuscule suivie de lettres minuscules.");
+//            return false;
+//        }
+//        return true;
+//    }
 //    private static boolean validerAnnee(String year){
 //        Pattern pattern = Pattern.compile("^[0-9]{4}$");
 //        Matcher matcher = pattern.matcher(year);
 //        
 //        return matcher.matches();
 //    }
-
-    private static boolean validerAnnee(String annee) {
-        try {
-            int year = Integer.parseInt(annee);
-            if (annee.length() != 4) {
-                System.out.println("Attention: L'année doit être de quatre chiffres");
-                return false;
-            }
-            return true;
-        } catch (NumberFormatException e) {
-            System.out.println("Attention: L'année doit être un nombre");
-            return false;
-        }
-    }
-
-    private static boolean validerCourriel(String courriel) {
-        Pattern pattern = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
-        Matcher matcher = pattern.matcher(courriel);
-        if (!matcher.matches()) {
-            System.out.println("Le courriel est invalide. Le courriel doit avoir un format valide, par exemple: exemple@domaine.com.");
-            return false;
-        }
-        return true;
-    }
+//
+//    private static boolean validerAnnee(String annee) {
+//        try {
+//            int year = Integer.parseInt(annee);
+//            if (annee.length() != 4) {
+//                System.out.println("Attention: L'année doit être de quatre chiffres");
+//                return false;
+//            }
+//            return true;
+//        } catch (NumberFormatException e) {
+//            System.out.println("Attention: L'année doit être un nombre");
+//            return false;
+//        }
+//    }
+//
+//    private static boolean validerCourriel(String courriel) {
+//        Pattern pattern = Pattern.compile("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+//        Matcher matcher = pattern.matcher(courriel);
+//        if (!matcher.matches()) {
+//            System.out.println("Le courriel est invalide. Le courriel doit avoir un format valide, par exemple: exemple@domaine.com.");
+//            return false;
+//        }
+//        return true;
+//    }
 
     private static int findStudentIndex(String[][] students, String nom, String prenom) {
         for (int i = 0; i < students.length; i++) {
