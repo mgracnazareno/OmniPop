@@ -27,3 +27,14 @@ le nom d’utilisateur de l’étudiant, ce nom doit être composé des 3 premi�
 5.	Afficher les informations d’un étudiant donné en fournissant son nom et son prénom
 6.	 Quitter le programme
 Après chaque fin de tache, permettre à l’enseignant de réaliser une autre tâche, en lui affichant le menu de nouveau.
+
+Tests
+Login Fail
+
+![1_LoginFail](https://user-images.githubusercontent.com/47845955/229269804-18b52a23-9568-452a-8642-73d782a818aa.png)
+
+Login Succes
+
+![2_LoginSuccess](https://user-images.githubusercontent.com/47845955/229269813-3cd9178e-2468-4630-b9e2-11126ebf8549.png)
+Option 1 - Afficher les cours par Session 
+![3_Option1](https://user-images.githubusercontent.com/47845955/229293902-6ba10845-fe66-4215-b020-50756867aea0.png)
