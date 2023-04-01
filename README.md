@@ -36,3 +36,5 @@ Login Fail
 Login Succes
 
 ![2_LoginSuccess](https://user-images.githubusercontent.com/47845955/229269813-3cd9178e-2468-4630-b9e2-11126ebf8549.png)
+Option 1 - Afficher les cours par Session 
+![3_Option1](https://user-images.githubusercontent.com/47845955/229293902-6ba10845-fe66-4215-b020-50756867aea0.png)
