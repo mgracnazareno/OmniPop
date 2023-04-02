@@ -27,7 +27,7 @@ public class Omnipop {
             final int MAX_TENTATIVES = 3;
             String inputUsername;
             String inputPassword;
-            String response = null;
+            String response ="";
             int infructueseTentative = 0;
             int choice = 0;
             String[][] courseList = {
@@ -311,18 +311,6 @@ public class Omnipop {
         }
     }
 
-    private static int validerEntree(String input) {
-        int validatedInput = -1;
-        try {
-            validatedInput = Integer.parseInt(input);
-            if (validatedInput < 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Entree invalide, essayez de nouveau! ");
-        }
-        return validatedInput;
-    }
 
     public static boolean validateName(String name) {
         Pattern pattern = Pattern.compile("^[\\p{L}'\\- ]+$", Pattern.UNICODE_CHARACTER_CLASS);
@@ -349,14 +337,4 @@ public class Omnipop {
         return -1;
     }
 
-    private static String obtenirRéponseOuiNon(Scanner input) {
-
-        String reponse = "";
-        do {
-            System.out.println("Veuillez vous faire une autre tache? (oui ou non): ");
-            reponse = input.nextLine();
-
-        } while (!reponse.equals("oui") && !reponse.equals("non"));
-        return reponse;
-    }
 }
