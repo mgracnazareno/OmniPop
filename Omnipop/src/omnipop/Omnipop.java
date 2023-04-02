@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.InputMismatchException;
 
 /**
  *
@@ -36,7 +35,7 @@ public class Omnipop {
                 {"Winter 2021", "Object Oriented", "Database", "Alogirthme"},
                 {"Summer 2022", "Data Structure", "Object Oriented"}
             };
-            String id = "", nom, prenom, aNaissance, email, codeP;
+            String nom, prenom;
             int tEtudiant = 0;
             String[][] etudiant;
             etudiant = new String[tEtudiant][6];
@@ -84,21 +83,21 @@ public class Omnipop {
                             getCourseListMenu();
                             System.out.println("");
                             System.out.println("Entrez votre choix: ");
-                            while(true){
+                            while (true) {
                                 if (input.hasNextInt()) {
                                     courseListChoice = input.nextInt();
                                     if (courseListChoice >= 1 && courseListChoice <= 3) {
                                         break;
-                                    }else{
+                                    } else {
                                         System.out.println("Entrez une valeur numerique entre 1 et 3!");
                                     }
-                                    
-                                }else{
+
+                                } else {
                                     System.out.println("Entrez une valeur numerique seulement");
                                     input.next();
                                 }
                             }
-                           input.nextLine();
+                            input.nextLine();
                             //MENU POUR LISTER TOUS LES COURS PAS SESSION
                             switch (courseListChoice) {
                                 case 1:
@@ -145,13 +144,11 @@ public class Omnipop {
                             displayCourses(courseList);
                             break;
                         case 3:
-                            System.out.println("Combien d'étudiants voulez-vous ajouter dans le dossier ?: ");
-                            tEtudiant = validerEntree();
-                            //input.nextLine();
+                            tEtudiant = getNumberOfStudents(input);
                             etudiant = new String[tEtudiant][6];
                             getStudentInfo(etudiant);
-
                             break;
+
                         case 4:
 
                             System.out.println("Lister tous les étudiants");
@@ -230,6 +227,19 @@ public class Omnipop {
             throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
         }
     }
+    // Method to validate and get the number of students
+
+    private static int getNumberOfStudents(Scanner input) {
+        int numberOfStudents;
+        System.out.println("Combien d'étudiants vous voulez entrez au dossier?: ");
+        while (!input.hasNextInt()) {
+            System.out.println("Entrez les valeur numéric seulement!");
+            input.next();
+        }
+        numberOfStudents = input.nextInt();
+        input.nextLine(); // Consume the newline character left after nextInt()
+        return numberOfStudents;
+    }
 
     private static void getStudentInfo(String[][] etudiant) {
         Scanner input = new Scanner(System.in);
@@ -239,34 +249,39 @@ public class Omnipop {
 
             System.out.print("Nom de famille: ");
             String nom = "";
-            while (nom.isEmpty() || !nom.matches("^[a-zA-Z]+$")) {
-
+            while (true) {
+                nom = input.nextLine().trim();
                 if (!nom.matches("^[a-zA-Z]+$")) {
                     System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
                             + "Entrez le nom: ");
+
+                } else {
+                    break;
                 }
             }
 
             System.out.print("Prenom: ");
             String prenom = "";
-            while (nom.isEmpty() || !nom.matches("^[a-zA-Z]+$")) {
+            while (true) {
                 prenom = input.nextLine().trim();
-                if (!nom.matches("^[a-zA-Z]+$")) {
+                if (!prenom.matches("^[a-zA-Z]+(?:[\\s][a-zA-Z]+)*$")) {
                     System.out.println("Le prenom doit contenir seulement des lettres. Veuillez réessayer\n"
                             + "Entrez le prenom: ");
-
+                } else {
+                    break;
                 }
             }
 
             System.out.print("Année de naissance: ");
-            String aNaissance=input.nextLine();
-           
+            String aNaissance = input.nextLine();
+
             System.out.print("Email: ");
             String email = input.nextLine();
-            String regexEmail ="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-            if (!email.matches(regexEmail)) {
-                System.out.println("Le courriel est invaliee");
-                return;
+            String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+            while (!email.matches(regexEmail)) {
+                System.out.println("Le courriel est invalide.");
+                System.out.print("Veuillez entrer un courriel valide: ");
+                email = input.nextLine();
             }
             try {
                 String codeP = genererCodePermanent(nom, prenom, aNaissance);
@@ -296,13 +311,16 @@ public class Omnipop {
         }
     }
 
-    private static int validerEntree() {
-        Scanner sc = new Scanner(System.in);
-        while (!sc.hasNextInt()) {
+    private static int validerEntree(String input) {
+        int validatedInput = -1;
+        try {
+            validatedInput = Integer.parseInt(input);
+            if (validatedInput < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException e) {
             System.out.println("Entree invalide, essayez de nouveau! ");
-            sc.next();
         }
-        int validatedInput = sc.nextInt();
         return validatedInput;
     }
 
