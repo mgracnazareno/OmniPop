@@ -1,26 +1,4 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
- */
-package omnipop;
-
-import java.time.LocalDate;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-/**
- *
- * @author mgrac
- */
-public class Omnipop {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-         try (Scanner input = new Scanner(System.in)) {
+  try (Scanner input = new Scanner(System.in)) {
             System.setProperty("console.encoding", "UTF-8");
             final String USERNAME = "mlazar";
             final String PASSWORD = "1234";
@@ -31,14 +9,15 @@ public class Omnipop {
             int infructueseTentative = 0;
             int choice = 0;
             String[][] courseList = {
-                {"Automne 2021", "Base de données", "Algorithme"},
-                {"Hiver 2021", "Orienté objet", "Base de données", "Alogirthme"},
-                {"Été 2022", "Structures données", "Orienté objet"}
+                {"Fall 2021", "Database", "Algorithme"},
+                {"Winter 2021", "Object Oriented", "Database", "Alogirthme"},
+                {"Summer 2022", "Data Structure", "Object Oriented"}
             };
             String nom, prenom;
             int tEtudiant = 0;
             String[][] etudiant;
             etudiant = new String[tEtudiant][6];
+
             System.out.println("Bienvenue au OMNIPOP");
             boolean loginSuccess = false;
             while (infructueseTentative < MAX_TENTATIVES) {
@@ -61,6 +40,7 @@ public class Omnipop {
                     }
                 }
             }
+            // clearScreen();
             if (loginSuccess) {
                 do {
                     printMenu();
@@ -79,6 +59,7 @@ public class Omnipop {
                     //MENU PRINCIPAL
                     switch (choice) {
                         case 1:
+                            //clearScreen();
                             int courseListChoice = 0;
                             getCourseListMenu();
                             System.out.println("");
@@ -101,13 +82,38 @@ public class Omnipop {
                             //MENU POUR LISTER TOUS LES COURS PAS SESSION
                             switch (courseListChoice) {
                                 case 1:
-                                    afficheCoursSession(courseList[0]);
+                                    clearScreen();
+                                    System.out.println("Cours pour l'Automne 2021");
+                                    String courseFall = "";
+                                    for (int row = 0; row < courseList.length; row++) {
+                                        for (int col = 0; col < courseList[row].length; col++) {
+                                            courseFall = courseList[0][0] + "\t" + courseList[0][1] + "\t" + courseList[0][2];
+                                        }
+                                    }
+                                    System.out.println(courseFall);
+                                    System.out.println("");
                                     break;
                                 case 2:
-                                    afficheCoursSession(courseList[1]);
+                                    System.out.println("Cours pour d'Hiver 2021");
+                                    String courseWinter = "";
+                                    for (int row = 0; row < courseList.length; row++) {
+                                        for (int col = 0; col < courseList[row].length; col++) {
+                                            courseWinter = courseList[1][0] + "\n" + courseList[1][1] + "\n" + courseList[1][2] + "\n" + courseList[1][3];
+                                        }
+                                    }
+                                    System.out.println(courseWinter);
+                                    System.out.println("");
                                     break;
                                 case 3:
-                                    afficheCoursSession(courseList[2]);
+                                    System.out.println("Cours pour l'Été 2022");
+                                    String courseSummer = "";
+                                    for (int row = 0; row < courseList.length; row++) {
+                                        for (int col = 0; col < courseList[row].length; col++) {
+                                            courseSummer = courseList[2][0] + "\n" + courseList[2][1] + "\n" + courseList[2][2];
+                                        }
+                                    }
+                                    System.out.println(courseSummer);
+                                    System.out.println("");
                                     break;
                                 default:
                                     System.out.println("Éntrée est invalide, entrez une numeric valeur de 1 à 4");
@@ -133,8 +139,6 @@ public class Omnipop {
                             } else {
                                 System.out.println("Il n'y a pas d'étudiant dans la liste");
 
-                                getStudentInfo(etudiant);
-
                             }
                             break;
 
@@ -155,7 +159,7 @@ public class Omnipop {
                             break;
 
                         case 6:
-                            System.out.println("Merci d'utiliser Omnipop. Au revoir!");
+                            System.out.println("Au revoir!");
                             System.exit(0);
                             break;
                         default:
@@ -166,7 +170,7 @@ public class Omnipop {
                     System.out.println("Veuillez vous faire une autre tache? (oui ou non): ");
                     response = input.next();
                     input.nextLine();
-                } while (response.equalsIgnoreCase("oui") || response.equalsIgnoreCase("o"));
+                } while (response.equalsIgnoreCase("o"));
             }
         }
     }
@@ -182,7 +186,7 @@ public class Omnipop {
     }
 
     private static void getCourseListMenu() {
-        System.out.println("Display Courses by Season");
+        System.out.println("Lister les cours par session");
         System.out.println("1- Automne 2021");
         System.out.println("2- Hiver 2021");
         System.out.println("3- Été 2022");
@@ -198,25 +202,29 @@ public class Omnipop {
         System.out.println("");
     }
 
-    private static void afficheCoursSession(String[] courseList) {
-        System.out.println("Cours pour " + courseList[0]);
-        for (int i = 1; i < courseList.length; i++) {
-            System.out.println(courseList[i]);
-
-        }
-        System.out.println("");
-    }
-
+//   
+//            public static String genererCodePermanent(String nom, String prenom, String aNaissance) {
+//                if (prenom.length() >= 3 && nom.length() >= 1) {
+//                    String codeP = prenom.substring(0, 3) + nom.substring(0, 1) + aNaissance;
+//                    return codeP;
+//                } else {
+//                    throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
+//                }
+//            }
+//         
     public static String genererCodePermanent(String nom, String prenom, String aNaissance) {
-        if (prenom.length() >= 3 && nom.length() >= 1) {
-            String codeP = prenom.substring(0, 3) + nom.substring(0, 1) + aNaissance;
-            return codeP;
-        } else {
-            throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
+    if (prenom.length() >= 3 && nom.length() >= 1) {
+        // Pad year of birth with leading 0 if necessary
+        if (aNaissance.length() == 2) {
+            aNaissance = "19" + aNaissance;
         }
+        String codeP = prenom.substring(0, 3) + nom.substring(0, 1) + aNaissance;
+        return codeP;
+    } else {
+        throw new IllegalArgumentException("Error: invalid student information for Code Permanent.");
     }
+}
 
-    // Method to validate and get the number of students
     private static int getNumberOfStudents(Scanner input) {
         int numberOfStudents;
         System.out.println("Combien d'étudiants vous voulez entrez au dossier?: ");
@@ -229,20 +237,130 @@ public class Omnipop {
         return numberOfStudents;
     }
 
+    public static String[] validerNomPrenom(String name) {
+        //Pattern pattern = Pattern.compile("^(\\p{L}+\\p{M}*)(?:\\s+(\\p{L}+\\p{M}*))?$", Pattern.UNICODE_CHARACTER_CLASS);
+        Pattern pattern = Pattern.compile("^[\\p{L}\\p{M}\\s'-]+$");
+        Matcher matcher = pattern.matcher(name);
+
+        if (matcher.matches()) {
+            String firstName = matcher.group(1);
+            String lastName = matcher.group(2);
+
+            // If the last name is null, it means there's only one word in the name.
+            // In this case, we set the last name to an empty string.
+            if (lastName == null) {
+                lastName = "";
+            }
+
+            return new String[]{firstName, lastName};
+        } else {
+            return null;
+        }
+    }
+//
+//    private static void getStudentInfo(String[][] etudiant) {
+//        Scanner input = new Scanner(System.in);
+//        int id = 1;
+//
+//        for (int row = 0; row < etudiant.length; row++) {
+//            System.out.println("Entrez l'information d'Etudiant " + id++);
+//
+//            System.out.print("Nom de famille: ");
+//            String nom;
+//
+//            while (true) {
+//                nom = input.nextLine().trim();
+//                String[] validatedName= validerNomPrenom(nom);
+//                if (validatedName == null) {
+//                    System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
+//                            + "Entrez le nom: ");
+//                } else {
+//                    break;
+//                }
+//            }
+//
+//            System.out.print("Prenom: ");
+//            String prenom = "";
+//            while (true) {
+//                prenom = input.nextLine().trim();
+//                 String[] validatedName= validerNomPrenom(prenom);
+//                if (validatedName == null) {
+//                    System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
+//                            + "Entrez le nom: ");
+//                } else {
+//                    break;
+//                }
+//            }
+//            System.out.print("Année de naissance: ");
+//            String aNaissance = input.nextLine();
+//
+//            System.out.print("Email: ");
+//            String email = input.nextLine();
+//            String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+//            while (!email.matches(regexEmail)) {
+//                System.out.println("Le courriel est invalide.");
+//                System.out.print("Veuillez entrer un courriel valide: ");
+//                email = input.nextLine();
+//            }
+//
+//            try {
+//                String codeP = genererCodePermanent(nom, prenom, aNaissance);
+//                etudiant[row][0] = String.valueOf(row + 1);
+//                etudiant[row][1] = nom;
+//                etudiant[row][2] = prenom;
+//                etudiant[row][3] = aNaissance;
+//                etudiant[row][4] = email;
+//                etudiant[row][5] = codeP;
+//                System.out.println("Id: " + etudiant[row][0] + " Code Permanent: " + codeP);
+//            } catch (IllegalArgumentException e) {
+//                System.out.println(e.getMessage());
+//                row--;
+//                continue;
+//            }
+//            System.out.println();
+//        }
+//
+//    }
+
+    private static boolean isValidName(String name) {
+        char[] allowedChars = new char[]{' ', '-', 'À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'Þ', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ð', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'þ', 'ÿ'};
+        for (char c : name.toCharArray()) {
+            if (!Character.isLetter(c) && !containsChar(allowedChars, c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean containsChar(char[] array, char c) {
+        for (char x : array) {
+            if (x == c) {
+                return true;
+            }
+        }
+        return false;
+    }
+//    public static String isValidName(String name) {
+//        Pattern pattern = Pattern.compile("^(\\p{L}+\\p{M}*)(?:\\s+(\\p{L}+\\p{M}*))?$", Pattern.UNICODE_CHARACTER_CLASS);
+//        Matcher matcher = pattern.matcher(name);
+//        return matcher.matches() ? matcher.group() : null;
+//    }
+
     private static void getStudentInfo(String[][] etudiant) {
         Scanner input = new Scanner(System.in);
         int id = 1;
+
         for (int row = 0; row < etudiant.length; row++) {
             System.out.println("Entrez l'information d'Etudiant " + id++);
 
             System.out.print("Nom de famille: ");
-            String nom = "";
+            String nom;
+
             while (true) {
                 nom = input.nextLine().trim();
-                if (!nom.matches("^[a-zA-Z]+$")) {
+                if (!isValidName(nom)) {
                     System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
                             + "Entrez le nom: ");
-
                 } else {
                     break;
                 }
@@ -251,18 +369,33 @@ public class Omnipop {
             System.out.print("Prenom: ");
             String prenom = "";
             while (true) {
-                prenom = input.nextLine().trim();
-                if (!prenom.matches("^[a-zA-Z]+(?:[\\s][a-zA-Z]+)*$")) {
-                    System.out.println("Le prenom doit contenir seulement des lettres. Veuillez réessayer\n"
-                            + "Entrez le prenom: ");
-
+                nom = input.nextLine().trim();
+                if (!isValidName(nom)) {
+                    System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
+                            + "Entrez le nom: ");
                 } else {
                     break;
                 }
             }
-
             System.out.print("Année de naissance: ");
-            String aNaissance = input.nextLine();
+            //String aNaissance = input.nextLine();
+            String aNaissance;
+            int annee;
+            while (true) {
+                aNaissance = input.nextLine();
+                try {
+                    annee = Integer.parseInt(aNaissance);
+                    if (annee < 1900 || annee > 9999) {
+                        throw new IllegalArgumentException("L'année de naissance doit être comprise entre 1900 et 9999.");
+                    }
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("L'année de naissance doit être un nombre entier.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.print("Veuillez entrer une année de naissance valide: ");
+            }
 
             System.out.print("Email: ");
             String email = input.nextLine();
@@ -289,6 +422,14 @@ public class Omnipop {
             }
             System.out.println();
         }
+
+    }
+
+    private static void clearScreen() {
+        int page_size = 15;
+        for (int i = 0; i < page_size; i++) {
+            System.out.println("");
+        }
     }
 
     private static void displayStudents(String[][] students) {
@@ -302,7 +443,9 @@ public class Omnipop {
     }
 
     public static boolean validateName(String name) {
-        Pattern pattern = Pattern.compile("^[\\p{L}'\\- ]+$", Pattern.UNICODE_CHARACTER_CLASS);
+        //Pattern pattern = Pattern.compile("^[\\p{L}'\\- ]+$", Pattern.UNICODE_CHARACTER_CLASS);
+        String regexPattern = "^(?=.{1,})([A-Z][a-zàâçéèêëîïôûùüÿñæœ]*)(?:\\s([A-Z][a-zàâçéèêëîïôûùüÿñæœ]*))?$";
+        Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(name);
         return matcher.matches();
     }
@@ -319,12 +462,9 @@ public class Omnipop {
 
     private static int findStudentIndex(String[][] students, String nom, String prenom) {
         for (int i = 0; i < students.length; i++) {
-            if (students[i][1].equalsIgnoreCase(nom) && students[i][2].equalsIgnoreCase(prenom)) {
+            if (students[i][1].equals(nom) && students[i][2].equals(prenom)) {
                 return i;
             }
         }
         return -1;
     }
-
-
-}
