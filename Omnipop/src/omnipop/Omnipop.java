@@ -20,7 +20,7 @@ public class Omnipop {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-         try (Scanner input = new Scanner(System.in)) {
+        try (Scanner input = new Scanner(System.in)) {
             System.setProperty("console.encoding", "UTF-8");
             final String USERNAME = "mlazar";
             final String PASSWORD = "1234";
@@ -231,15 +231,18 @@ public class Omnipop {
 
     private static void getStudentInfo(String[][] etudiant) {
         Scanner input = new Scanner(System.in);
-        int id = 1;
+        //int id = 1;
+        int lastId = 0;
         for (int row = 0; row < etudiant.length; row++) {
+            int id = lastId + 1;
+            lastId = id;
             System.out.println("Entrez l'information d'Etudiant " + id++);
 
             System.out.print("Nom de famille: ");
             String nom = "";
             while (true) {
                 nom = input.nextLine().trim();
-                if (!nom.matches("^[a-zA-Z]+$")) {
+                if (!nom.matches("^[a-zA-Z]+$") && validateName(nom)) {
                     System.out.println("Le nom doit contenir seulement des lettres. Veuillez réessayer\n"
                             + "Entrez le nom: ");
 
@@ -252,7 +255,7 @@ public class Omnipop {
             String prenom = "";
             while (true) {
                 prenom = input.nextLine().trim();
-                if (!prenom.matches("^[a-zA-Z]+(?:[\\s][a-zA-Z]+)*$")) {
+                if (!prenom.matches("^[a-zA-Z]+(?:[\\s][a-zA-Z]+)*$") && validateName(prenom)) {
                     System.out.println("Le prenom doit contenir seulement des lettres. Veuillez réessayer\n"
                             + "Entrez le prenom: ");
 
@@ -263,7 +266,12 @@ public class Omnipop {
 
             System.out.print("Année de naissance: ");
             String aNaissance = input.nextLine();
-
+            while (!isAnneeValid(aNaissance)) {
+                System.out.println("L'année de naissance doit être comprise entre 1900 et 2023 et doit contenir exactement 4 chiffres. Veuillez réessayer.");
+                System.out.print("Année de naissance: ");
+                aNaissance = input.nextLine();
+            }
+            
             System.out.print("Email: ");
             String email = input.nextLine();
             String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -325,6 +333,5 @@ public class Omnipop {
         }
         return -1;
     }
-
 
 }
